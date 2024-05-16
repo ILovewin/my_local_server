@@ -59,7 +59,7 @@ Core Dump：Core的意思是内存，Dump的意思是扔出来，堆出来（段
 - 查询核心转储文件的大小限制，若为0，则不会产生对应的coredump，需要进行修改和设置
 
   ```
-  ulimit –c
+  ulimit -c
   ```
 
 - 需要让core文件能够产生，设置core大小为无限
@@ -102,3 +102,6 @@ Core Dump：Core的意思是内存，Dump的意思是扔出来，堆出来（段
   #5  0x0000560bd3457b69 in main () at client.c:213
   ```
 
+## 改进
+
+为避免空闲客户端一直占用服务器资源，引入了定时器处理非活动连接，并重新封装线程池，增加了任务队列操作，以提高服务器的性能（参考https://github.com/qinguoyi/TinyWebServer）

@@ -32,19 +32,15 @@ $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 
 # 生成 server 可执行文件
-server: $(OBJ_DIR)/server.o
-	$(CC) $(CFLAGS) -o server $(OBJ_DIR)/server.o
+server: $(OBJS)
+	$(CC) $(CFLAGS) -o server $(OBJ_DIR)/server.o $(OBJ_DIR)/lst_timer.o
 
 # 生成 client 可执行文件
 client: $(OBJ_DIR)/client.o
 	$(CC) $(CFLAGS) -o client $(OBJ_DIR)/client.o
 
-# 编译 server 源文件
-$(OBJ_DIR)/server.o: $(SRC_DIR)/server.c | $(OBJ_DIR)
-	$(CC) $(CFLAGS) -c -o $@ $<
-
-# 编译 client 源文件
-$(OBJ_DIR)/client.o: $(SRC_DIR)/client.c | $(OBJ_DIR)
+# 编译所有源文件
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 # 清理生成的文件
